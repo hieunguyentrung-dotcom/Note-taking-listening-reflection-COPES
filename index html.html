@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COPES Reflection Journal</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap');
+
+:root {
+  --bg: #faf7f2;
+  --surface: #ffffff;
+  --border: #e8e0d4;
+  --border2: #d4c9b8;
+  --ink: #2c2416;
+  --muted: #8c7d6a;
+  --dim: #c4b8a8;
+  --accent: #5c4a32;
+  --accent2: #8b6914;
+  --green: #2d6a4f;
+  --red: #c0392b;
+  --part1: #4a6fa5;
+  --part2: #6b4a8a;
+  --part3: #2d6a4f;
+  --part4: #8b4513;
+  --part5: #4a5568;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Lora', Georgia, serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+/* Paper texture */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(139,105,20,0.03) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(92,74,50,0.03) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.page {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 40px 32px 80px;
+}
+
+/* ── COVER ── */
+.cover {
+  text-align: center;
+  padding: 48px 0 40px;
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.cover::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0; right: 0;
+  height: 1px;
+  background: var(--border2);
+}
+
+.cover-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent2);
+  margin-bottom: 16px;
+}
+
+.cover h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+.cover h1 span { color: var(--accent2); }
+
+.cover-sub {
+  font-size: 14px;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 24px;
+}
+
+/* Participant info grid */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  text-align: left;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.info-field label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.info-field input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--border2);
+  background: transparent;
+  padding: 6px 0;
+  font-family: 'Lora', serif;
+  font-size: 14px;
+  color: var(--ink);
+  outline: none;
+}
+
+.info-field input:focus { border-bottom-color: var(--accent); }
+
+/* ── PROGRESS ── */
+.progress-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 32px;
+}
+
+.progress-track {
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent2), var(--accent));
+  border-radius: 2px;
+  transition: width 0.4s ease;
+  width: 0%;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+/* ── PART SECTION ── */
+.part {
+  margin-bottom: 48px;
+}
+
+.part-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.part-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--surface);
+  background: var(--part-color, var(--accent));
+  padding: 3px 8px;
+  border-radius: 3px;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.part-title-wrap {}
+.part-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+
+.part-copes {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--part-color, var(--muted));
+}
+
+/* ── QUESTION ── */
+.question {
+  margin-bottom: 28px;
+}
+
+.q-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--accent2);
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.q-text {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 4px;
+  line-height: 1.5;
+}
+
+.q-hint {
+  font-size: 12px;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.q-hint span {
+  display: inline-block;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1px 6px;
+  margin: 2px 3px;
+  font-style: normal;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+}
+
+textarea, input[type="text"], input[type="date"], input[type="number"] {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 12px 14px;
+  font-family: 'Lora', serif;
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--surface);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  line-height: 1.6;
+}
+
+textarea:focus, input:focus {
+  border-color: var(--accent2);
+  box-shadow: 0 0 0 3px rgba(139,105,20,0.08);
+}
+
+textarea { resize: vertical; min-height: 100px; }
+textarea.tall { min-height: 140px; }
+
+/* ── COMPARISON TABLE ── */
+.compare-table {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.compare-col label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+  padding-bottom: 4px;
+  border-bottom: 2px solid var(--border);
+}
+
+.compare-col.student label { border-bottom-color: var(--part1); color: var(--part1); }
+.compare-col.ai label { border-bottom-color: var(--part2); color: var(--part2); }
+
+/* ── ANSWER TABLE ── */
+.answer-table {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.answer-col label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.correct-answer-field {
+  margin-bottom: 8px;
+}
+
+.correct-answer-field label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--green);
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* ── OPTIONAL TAG ── */
+.optional-tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--dim);
+  border: 1px solid var(--dim);
+  padding: 1px 5px;
+  border-radius: 2px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+/* ── SUBMIT ── */
+.submit-area {
+  border-top: 2px solid var(--ink);
+  padding-top: 32px;
+  margin-top: 48px;
+  text-align: center;
+}
+
+.submit-note {
+  font-size: 13px;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.btn-submit {
+  background: var(--ink);
+  color: var(--bg);
+  border: none;
+  padding: 14px 48px;
+  font-family: 'Lora', serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-submit:hover { background: var(--accent); transform: translateY(-1px); }
+.btn-submit:active { transform: translateY(0); }
+.btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* ── SUCCESS ── */
+.success {
+  display: none;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.success.show { display: block; }
+.success-icon { font-size: 48px; margin-bottom: 20px; }
+.success h2 {
+  font-size: 26px;
+  color: var(--green);
+  margin-bottom: 8px;
+}
+.success p { color: var(--muted); font-style: italic; }
+
+/* ── STATUS MESSAGE ── */
+.status-msg {
+  margin-top: 12px;
+  font-size: 13px;
+  font-family: 'JetBrains Mono', monospace;
+  min-height: 20px;
+}
+
+.status-msg.sending { color: var(--accent2); }
+.status-msg.success { color: var(--green); }
+.status-msg.error { color: var(--red); }
+
+/* ── DIVIDER ── */
+.ornament {
+  text-align: center;
+  color: var(--dim);
+  font-size: 12px;
+  letter-spacing: 8px;
+  margin: 32px 0;
+}
+
+@media (max-width: 600px) {
+  .page { padding: 24px 16px 60px; }
+  .info-grid { grid-template-columns: 1fr; }
+  .compare-table { grid-template-columns: 1fr; }
+  .answer-table { grid-template-columns: 1fr; }
+  .cover h1 { font-size: 22px; }
+}
+
+@media print {
+  body { background: white; }
+  .progress-bar { display: none; }
+  .btn-submit { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ══ COVER ══ -->
+  <div class="cover">
+    <div class="cover-eyebrow">Research Instrument · Nhật ký phản tư</div>
+    <h1>COPES-Informed<br><span>Reflection Journal</span></h1>
+    <div class="cover-sub">Self-Regulated Strategic Note-Taking with AI Support in IELTS Listening</div>
+
+    <div class="info-grid">
+      <div class="info-field">
+        <label>Participant ID · Mã số</label>
+        <input type="text" id="participantId" placeholder="P01, P02...">
+      </div>
+      <div class="info-field">
+        <label>Task Number · Task số</label>
+        <input type="number" id="taskNumber" placeholder="1, 2, 3..." min="1">
+      </div>
+      <div class="info-field">
+        <label>Date · Ngày</label>
+        <input type="date" id="date">
+      </div>
+      <div class="info-field">
+        <label>Listening Topic · Chủ đề</label>
+        <input type="text" id="topic" placeholder="e.g. Environment, Technology...">
+      </div>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-bar">
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="progress-label">
+      <span id="progressText">0 / 13 câu</span>
+      <span id="progressPct">0%</span>
+    </div>
+  </div>
+
+  <div id="formContent">
+
+  <!-- ══ PART 1 ══ -->
+  <div class="part">
+    <div class="part-header">
+      <div class="part-num" style="background:var(--part1)">PART 1</div>
+      <div class="part-title-wrap">
+        <div class="part-title">Listening Experience</div>
+        <div class="part-copes" style="color:var(--part1)">CONDITIONS — Điều kiện</div>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-num">Q1</div>
+      <div class="q-text">What difficulties did you experience during the listening task?</div>
+      <div class="q-hint">
+        Bạn gặp khó khăn gì trong lúc nghe? Ví dụ:
+        <span>fast speech</span><span>numbers</span><span>spelling</span>
+        <span>unfamiliar vocabulary</span><span>losing focus</span><span>missing details</span>
+      </div>
+      <textarea id="q1" class="tall" placeholder="Your response / Câu trả lời của bạn..." oninput="updateProgress()"></textarea>
+    </div>
+
+    <div class="question">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Which parts of the listening were most difficult to note down?</div>
+      <div class="q-hint">Phần nào trong bài nghe khó ghi chú nhất?</div>
+      <textarea id="q2" placeholder="Your response / Câu trả lời của bạn..." oninput="updateProgress()"></textarea>
+    </div>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+  <!-- ══ PART 2 ══ -->
+  <div class="part">
+    <div class="part-header">
+      <div class="part-num" style="background:var(--part2)">PART 2</div>
+      <div class="part-title-wrap">
+        <div class="part-title">Your Note-Taking Process</div>
+        <div class="part-copes" style="color:var(--part2)">OPERATIONS — Thao tác</div>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-num">Notes Comparison · So sánh ghi chú</div>
+      <div class="q-text">Compare your notes with AI-generated notes</div>
+      <div class="compare-table">
+        <div class="compare-col student">
+          <label>📝 Student's Notes · Ghi chú của bạn</label>
+          <textarea id="studentNotes" class="tall" placeholder="Ghi lại notes bạn đã viết trong lúc nghe..." oninput="updateProgress()"></textarea>
+        </div>
+        <div class="compare-col ai">
+          <label>🤖 AI Notes · Ghi chú của AI</label>
+          <textarea id="aiNotes" class="tall" placeholder="Copy ghi chú từ TechInterp Assistant vào đây..." oninput="updateProgress()"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-num">Q3</div>
+      <div class="q-text">What note-taking strategies did you use while listening?</div>
+      <div class="q-hint">
+        Bạn dùng chiến lược ghi chú nào? Ví dụ:
+        <span>keywords</span><span>abbreviations</span><span>arrows/symbols</span>
+        <span>paraphrasing</span><span>translanguaging</span><span>lists/grouping</span>
+      </div>
+      <textarea id="q3" placeholder="Your response / Câu trả lời của bạn..." oninput="updateProgress()"></textarea>
+    </div>
+
+    <div class="question">
+      <div class="q-num">Q4</div>
+      <div class="q-text">What note-taking strategies did you notice in the AI-generated notes?</div>
+      <div class="q-hint">Bạn nhận thấy AI dùng chiến lược ghi chú nào?</div>
+      <textarea id="q4" placeholder="Your response / Câu trả lời của bạn..." oninput="updateProgress()"></textarea>
+    </div>
+
+    <div class="question">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Which AI note-taking features were most useful for you?</div>
+      <div class="q-hint">
+        Tính năng nào của AI hữu ích nhất? Ví dụ:
+        <span>abbreviations</span><span>keywords</span><span>arrows</span>
+        <span>concise chunks</span><span>organization</span><span>mixed Vietnamese-English</span>
+      </div>
+      <textarea id="q5" placeholder="Your response / Câu trả lời của bạn..." oninput="updateProgress()"></textarea>
+    </div>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+  <!-- ══ PART 3 ══ -->
+  <div class="part">
+    <div class="part-header">
+      <div class="part-num" style="background:var(--part3)">PART 3</div>
+      <div class="part-title-wrap">
+        <div class="part-title">Learning Outcomes</div>
+        <div class="part-copes" style="color:var(--part3)">PRODUCTS — Kết quả học tập</div>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-num">Answer Comparison · So sánh câu trả lời</div>
+      <div class="answer-table">
+        <div class="answer-col">
+          <label>📝 My answer · Câu trả lời của tôi</label>
+          <textarea id="myAnswer" placeholder="Câu trả lời trước khi tham khảo AI..." oninput="updateProgress()"></textarea>
+        </div>
+        <div class="answer-col">
+          <label>🤖 After consulting AI · Sau khi tham khảo AI</label>
+          <textarea id="answerAfterAI" placeholder="Câu trả lời sau khi xem AI notes..." oninput="updateProgress()"></textarea>
+        </div>
+      </div>
+      <div class="correct-answer-field">
+        <label>✓ Correct Answer · Đáp án đúng</label>
+        <input type="text" id="correctAnswer" placeholder="Điền đáp án đúng vào đây...">
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Did the AI-supported notes help you revise or improve your listening answers? How?</div>
+      <div class="q-hint">AI notes có giúp bạn sửa hoặc cải thiện câu trả lời nghe không? Như thế nào?</div>
+      <textarea id="q6" placeholder="Your response / Câu trả lời của bạn..." oninput="updateProgress()"></textarea>
+    </div>
+
+    <div class="question">
+      <div class="q-num">Q7</div>
+      <div class="q-text">Which information became clearer after reviewing the AI notes?</div>
+      <div class="q-hint">
+        Thông tin nào trở nên rõ hơn sau khi xem AI notes? Ví dụ:
+        <span>numbers</span><span>locations</span><span>names</span>
+        <span>keywords</span><span>main ideas</span>
+      </div>
+      <textarea id="q7" placeholder="Your response / Câu trả lời của bạn..." oninput="updateProgress()"></textarea>
+    </div>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+  <!-- ══ PART 4 ══ -->
+  <div class="part">
+    <div class="part-header">
+      <div class="part-num" style="background:var(--part4)">PART 4</div>
+      <div class="part-title-wrap">
+        <div class="part-title">Self-Evaluation</div>
+        <div class="part-copes" style="color:var(--part4)">EVALUATIONS — Đánh giá bản thân</div>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-num">Q8</div>
+      <div class="q-text">What differences did you notice between your notes and the AI-generated notes?</div>
+      <div class="q-hint">Bạn nhận thấy sự khác biệt nào giữa ghi chú của bạn và AI?</div>
+      <textarea id="q8" placeholder="Your response / Câu trả lời của bạn..." oninput="updateProgress()"></textarea>
+    </div>
+
+    <div class="question">
+      <div class="q-num">Q9</div>
+      <div class="q-text">What weaknesses did you notice in your own notes?</div>
+      <div class="q-hint">
+        Bạn nhận thấy điểm yếu nào trong ghi chú của mình? Ví dụ:
+        <span>too many full sentences</span><span>missing keywords</span>
+        <span>disorganized notes</span><span>no abbreviations</span>
+      </div>
+      <textarea id="q9" placeholder="Your response / Câu trả lời của bạn..." oninput="updateProgress()"></textarea>
+    </div>
+
+    <div class="question">
+      <div class="q-num">Q10</div>
+      <div class="q-text">Did the AI notes change the way you think about note-taking? Why or why not?</div>
+      <div class="q-hint">AI notes có thay đổi cách bạn nghĩ về việc ghi chú không? Tại sao?</div>
+      <textarea id="q10" class="tall" placeholder="Your response / Câu trả lời của bạn..." oninput="updateProgress()"></textarea>
+    </div>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+  <!-- ══ PART 5 ══ -->
+  <div class="part">
+    <div class="part-header">
+      <div class="part-num" style="background:var(--part5)">PART 5</div>
+      <div class="part-title-wrap">
+        <div class="part-title">Future Note-Taking Goals</div>
+        <div class="part-copes" style="color:var(--part5)">STANDARDS — Tiêu chuẩn</div>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-num">Q11</div>
+      <div class="q-text">What would effective strategic notes look like for you in future listening tasks?</div>
+      <div class="q-hint">Ghi chú chiến lược hiệu quả sẽ trông như thế nào với bạn trong tương lai?</div>
+      <textarea id="q11" placeholder="Your response / Câu trả lời của bạn..." oninput="updateProgress()"></textarea>
+    </div>
+
+    <div class="question">
+      <div class="q-num">Q12</div>
+      <div class="q-text">Which note-taking strategies would you like to improve next time?</div>
+      <div class="q-hint">
+        Chiến lược nào bạn muốn cải thiện? Ví dụ:
+        <span>abbreviations</span><span>keyword selection</span>
+        <span>paraphrasing</span><span>organization</span><span>selective listening</span>
+      </div>
+      <textarea id="q12" placeholder="Your response / Câu trả lời của bạn..." oninput="updateProgress()"></textarea>
+    </div>
+
+    <div class="question">
+      <div class="q-num">Q13 <span class="optional-tag">Optional</span></div>
+      <div class="q-text">Overall, how did interacting with AI-supported strategic notes influence your IELTS listening experience?</div>
+      <div class="q-hint">Nhìn chung, AI notes đã ảnh hưởng đến trải nghiệm nghe IELTS của bạn như thế nào?</div>
+      <textarea id="q13" class="tall" placeholder="Your response / Câu trả lời của bạn (tùy chọn)..." oninput="updateProgress()"></textarea>
+    </div>
+  </div>
+
+  <!-- ══ SUBMIT ══ -->
+  <div class="submit-area">
+    <div class="submit-note">
+      Tất cả dữ liệu được lưu trữ bảo mật và chỉ dùng cho mục đích nghiên cứu học thuật.<br>
+      <em>All data is stored securely and used for academic research purposes only.</em>
+    </div>
+    <button class="btn-submit" id="btnSubmit" onclick="submitForm()">
+      Nộp phản tư · Submit Reflection
+    </button>
+    <div class="status-msg" id="statusMsg"></div>
+  </div>
+
+  </div><!-- end formContent -->
+
+  <!-- ══ SUCCESS ══ -->
+  <div class="success" id="successScreen">
+    <div class="success-icon">✦</div>
+    <h2>Đã nộp thành công!</h2>
+    <p>Thank you — phản tư của bạn đã được lưu lại.<br>
+    Your reflection has been recorded successfully.</p>
+  </div>
+
+</div><!-- end page -->
+
+<script>
+// ── CONFIGURATION ──
+// QUAN TRỌNG: Thay YOUR_SCRIPT_URL bằng URL từ Google Apps Script của bạn
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwsrExSU0zGQ8YUkyGulCwTWViSl4IHCkPpkmkXAtyqWlPgo0eL1x97gTnsKK5JiUS/exec';
+
+// ── PROGRESS ──
+function updateProgress() {
+  const fields = ['q1','q2','studentNotes','aiNotes','q3','q4','q5',
+                  'myAnswer','answerAfterAI','q6','q7','q8','q9','q10','q11','q12','q13'];
+  const filled = fields.filter(id => {
+    const el = document.getElementById(id);
+    return el && el.value.trim().length > 0;
+  }).length;
+  const total = 13;
+  const counted = Math.min(filled, total);
+  const pct = Math.round((counted / total) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = counted + ' / ' + total + ' câu';
+  document.getElementById('progressPct').textContent = pct + '%';
+}
+
+// ── SUBMIT ──
+async function submitForm() {
+  const btn = document.getElementById('btnSubmit');
+  const status = document.getElementById('statusMsg');
+
+  // Validate required fields
+  const required = { participantId: 'Participant ID', taskNumber: 'Task Number', date: 'Date' };
+  for (const [id, label] of Object.entries(required)) {
+    if (!document.getElementById(id).value.trim()) {
+      status.className = 'status-msg error';
+      status.textContent = `⚠ Vui lòng điền: ${label}`;
+      document.getElementById(id).focus();
+      return;
+    }
+  }
+
+  btn.disabled = true;
+  status.className = 'status-msg sending';
+  status.textContent = '⏳ Đang lưu dữ liệu...';
+
+  const data = {
+    participantId:   document.getElementById('participantId').value.trim(),
+    taskNumber:      document.getElementById('taskNumber').value.trim(),
+    date:            document.getElementById('date').value,
+    topic:           document.getElementById('topic').value.trim(),
+    q1:              document.getElementById('q1').value.trim(),
+    q2:              document.getElementById('q2').value.trim(),
+    studentNotes:    document.getElementById('studentNotes').value.trim(),
+    aiNotes:         document.getElementById('aiNotes').value.trim(),
+    q3:              document.getElementById('q3').value.trim(),
+    q4:              document.getElementById('q4').value.trim(),
+    q5:              document.getElementById('q5').value.trim(),
+    myAnswer:        document.getElementById('myAnswer').value.trim(),
+    answerAfterAI:   document.getElementById('answerAfterAI').value.trim(),
+    correctAnswer:   document.getElementById('correctAnswer').value.trim(),
+    q6:              document.getElementById('q6').value.trim(),
+    q7:              document.getElementById('q7').value.trim(),
+    q8:              document.getElementById('q8').value.trim(),
+    q9:              document.getElementById('q9').value.trim(),
+    q10:             document.getElementById('q10').value.trim(),
+    q11:             document.getElementById('q11').value.trim(),
+    q12:             document.getElementById('q12').value.trim(),
+    q13:             document.getElementById('q13').value.trim(),
+    submittedAt:     new Date().toISOString()
+  };
+
+  // If no Apps Script URL configured, save locally as fallback
+  if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
+    // Demo mode — download as JSON
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `reflection_${data.participantId}_task${data.taskNumber}.json`;
+    a.click();
+    status.className = 'status-msg success';
+    status.textContent = '✓ Demo mode: file đã được tải xuống (chưa setup Apps Script)';
+    btn.disabled = false;
+    return;
+  }
+
+  try {
+    const response = await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    document.getElementById('formContent').style.display = 'none';
+    document.getElementById('successScreen').classList.add('show');
+
+  } catch (error) {
+    status.className = 'status-msg error';
+    status.textContent = '✗ Lỗi kết nối. Vui lòng thử lại.';
+    btn.disabled = false;
+  }
+}
+
+// Set today's date as default
+document.getElementById('date').valueAsDate = new Date();
+updateProgress();
+</script>
+</body>
+</html>
